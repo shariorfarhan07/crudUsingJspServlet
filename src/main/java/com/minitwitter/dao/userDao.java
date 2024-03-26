@@ -14,7 +14,7 @@ public class userDao {
     public static user searchUser(String userName){
         try {
             connection = DB.getConnection();
-            PreparedStatement statement = connection.prepareStatement(search_user_with_userName+"limit 1");
+            PreparedStatement statement = connection.prepareStatement(search_user_with_userName);
             statement.setString(1,userName);
             ResultSet resultSet = statement.executeQuery();
             user user=new user();
@@ -23,8 +23,8 @@ public class userDao {
                 user.setUserName(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));
                 user.setEmail(resultSet.getString("email"));
+                return  user;
             }
-            return  user;
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -20,10 +20,10 @@
 
 </head>
 <body>
-<jsp:include page="extentions/navbar.jsp" />
+<jsp:include page="htmlextentions/navbar.jsp" />
 
 <div class="container pt-3">
-    <jsp:include page="extentions/Alerts-messages.jsp" />
+    <jsp:include page="htmlextentions/Alerts-messages.jsp" />
     <h1>Login</h1>
     <form action="login" method="post">
         <div class="form-group">

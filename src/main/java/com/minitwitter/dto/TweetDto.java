@@ -6,4 +6,42 @@ public class TweetDto {
     private String text;
 
 
+    public TweetDto(String id, String username, String text) {
+        this.id = Integer.parseInt(id);
+        this.username=username;
+        this.text=text;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "TweetDto{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }

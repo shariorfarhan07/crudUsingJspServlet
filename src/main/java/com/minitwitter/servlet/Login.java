@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
         if (!user.validParam()){
             request.setAttribute("error","Please provide valid user name and password!");;
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.include(request,response);
+            rd.forward(request,response);
         }
 
 
@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
         if (auth.isValidCredential(user)){
             user userCred=userDao.searchUser(user.getUserName());
             System.out.println("valid credential"+userCred);
-            session.putValue("userName",userCred.getUserName());
+            session.putValue("username",userCred.getUserName());
             session.putValue("id",userCred.getUserId());
             response.sendRedirect("tweet");
 
@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
         }else {
             request.setAttribute("error","The user name and password didn't matches with the one in our database");;
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.include(request,response);
+            rd.forward(request,response);
         }
 
 

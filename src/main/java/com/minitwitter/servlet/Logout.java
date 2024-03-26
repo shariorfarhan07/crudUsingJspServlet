@@ -1,5 +1,6 @@
 package com.minitwitter.servlet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,10 @@ import java.io.IOException;
 public class Logout extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        System.out.println("logging out as "+session.getAttribute("username"));
         session.invalidate();
-        response.sendRedirect("login.jsp");
+        request.setAttribute("success","You have been logged out successfully");;
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        rd.include(request,response);
     }
 }

@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.minitwitter.dto.TweetDto" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: shariorh
   Date: 3/15/24
@@ -13,33 +14,67 @@
 
 </head>
 <body>
-<jsp:include page="extentions/navbar.jsp" />
+<jsp:include page="htmlextentions/navbar.jsp" />
+
+
+<%
+  List<TweetDto> tweets  = (List<TweetDto>) request.getAttribute("tweets");
+  String username = (String) session.getAttribute("username");
+//  System.out.println(tweets+username);
+  if (username==null)response.sendRedirect("login.jsp");
+%>
 <div class="container pt-3">
-  <jsp:include page="extentions/Alerts-messages.jsp" />
-  <form>
+  <jsp:include page="htmlextentions/Alerts-messages.jsp" />
+  <form class="pt-3" style="margin: 10px;" method="POST"  action="tweet">
     <div class="form-group">
       <label for="tweet">What's on your mind</label>
       <input type="text" class="form-control" id="tweet" name="tweet" >
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  <div class="">
-
-    <div class="card" style="width: 100%;">
+  <div class="pt-3">
+<%
+   if (tweets != null)
+    for (TweetDto tweet: tweets) {
+%>
+    <div class="card" style="width: 100%;margin: 10px;">
 <%--      <img src="..." class="card-img-top" alt="...">--%>
       <div class="card-body ">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title"><%=tweet.getUsername()%></h5>
+        <p class="card-text"><%=tweet.getText()%></p>
+
+
+          <%
+              if ( tweet.getUsername().equals(username) ){
+          %>
+
+        <a href="tweet/<%=tweet.getId()%>" class="btn btn-success">Update</a>
+        <a href="tweet/<%=tweet.getId()%>/delete" class="btn btn-danger">Delete</a>
+
+          <%
+              }
+          %>
       </div>
     </div>
 
 
+
+  <%
+      }
+  %>
   </div>
 
-
-
 </div>
+
+<%--<%--%>
+<%--  if (tweets != null)--%>
+<%--  for (TweetDto t :tweets) {--%>
+<%--%>--%>
+<%--<!-- Output the value of 'i' within HTML -->--%>
+<%--<p>Iteration <%= t.toString() %></p>--%>
+<%--<%--%>
+<%--  } // End of the for loop--%>
+<%--%>--%>
 
 
 
