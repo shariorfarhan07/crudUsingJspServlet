@@ -4,6 +4,10 @@ public class Credentials {
     private String userName;
     private String password;
 
+    public Boolean validParam(){
+        return !(userName == null || userName.equals("")|| password == null || password.equals(""));
+    }
+
     public String getPassword() {
         return password;
     }

@@ -13,7 +13,9 @@
 
 </head>
 <body>
+<jsp:include page="extentions/navbar.jsp" />
 <div class="container pt-3">
+  <jsp:include page="extentions/Alerts-messages.jsp" />
   <form>
     <div class="form-group">
       <label for="tweet">What's on your mind</label>
@@ -23,9 +25,9 @@
   </form>
   <div class="">
 
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 100%;">
 <%--      <img src="..." class="card-img-top" alt="...">--%>
-      <div class="card-body">
+      <div class="card-body ">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <a href="#" class="btn btn-primary">Go somewhere</a>

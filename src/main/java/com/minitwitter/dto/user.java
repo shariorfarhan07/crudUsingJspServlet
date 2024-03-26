@@ -6,6 +6,10 @@ public class user {
     private String password;
     private String email;
 
+
+    public  boolean validPayload(){
+        return !(userName == null || password == null || password.equals("") || userName.equals(""));
+    }
     @Override
     public String toString() {
         return "user{" +

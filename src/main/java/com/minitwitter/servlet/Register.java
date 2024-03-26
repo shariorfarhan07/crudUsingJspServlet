@@ -3,6 +3,7 @@ package com.minitwitter.servlet;
 import com.minitwitter.dao.userDao;
 import com.minitwitter.dto.user;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,19 +32,27 @@ public class Register extends HttpServlet {
         authUser.setPassword(password);
         System.out.println(authUser);
 
+        if (!authUser.validPayload()){
+            request.setAttribute("error","Please provide valid payload!!!");;
+            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+            rd.include(request,response);
+            return;
+        }
+
         try {
             if (userDao.hasUser(username)){
-                response.setHeader("error","User already exist in our database.");
-                response.sendRedirect("login");
+                request.setAttribute("error","User already exist in our database.");;
+                RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+                rd.include(request,response);
+                return;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         userDao.createUser(username,password,email);
-        response.setHeader("success","User has been created please login! please login.");
-        response.sendRedirect("login");
 
-
-
+        request.setAttribute("success","User has been created please login!");
+        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        rd.include(request,response);
     }
 }

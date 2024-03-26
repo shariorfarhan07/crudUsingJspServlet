@@ -20,13 +20,11 @@
 
 </head>
 <body>
+<jsp:include page="extentions/navbar.jsp" />
 
 <div class="container pt-3">
 
-  <% if (request.getParameter("error") != null) { %>
-  <p style="color: red;"><% request.getParameter("error") ;%></p>
-  <% } %>
-
+  <jsp:include page="extentions/Alerts-messages.jsp" />
   <h1>Register</h1>
   <form action="register" method="post">
     <div class="form-group">
@@ -47,6 +45,7 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  <p> Already have an account?<a href="login"> Login</a></p>
 </div>
 
 

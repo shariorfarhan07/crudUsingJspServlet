@@ -20,14 +20,10 @@
 
 </head>
 <body>
+<jsp:include page="extentions/navbar.jsp" />
 
 <div class="container pt-3">
-    <% if (request.getParameter("error") != null) { %>
-    <p style="color: red;">Invalid username or password</p>
-    <% } %>
-    <% if (request.getParameter("success") != null) { %>
-    <p style="color: green;"><% request.getParameter("success") ;%></p>
-    <% } %>
+    <jsp:include page="extentions/Alerts-messages.jsp" />
     <h1>Login</h1>
     <form action="login" method="post">
         <div class="form-group">
@@ -37,11 +33,6 @@
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
-        </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
