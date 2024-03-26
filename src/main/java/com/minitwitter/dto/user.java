@@ -1,8 +1,10 @@
-package com.minitwitter.dao;
+package com.minitwitter.dto;
 
 public class user {
+    private int userId;
     private String userName;
     private String password;
+    private String email;
 
     @Override
     public String toString() {
@@ -10,6 +12,22 @@ public class user {
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = Integer.parseInt(userId);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public user() {

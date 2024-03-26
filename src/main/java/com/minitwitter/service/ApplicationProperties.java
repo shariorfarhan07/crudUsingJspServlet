@@ -1,5 +1,6 @@
 package com.minitwitter.service;
 
+import javax.servlet.ServletContext;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,11 +16,13 @@ public class ApplicationProperties {
         this.properties = properties;
     }
     public static synchronized ApplicationProperties getProperties(){
+       System.out.println(ApplicationProperties.class.getProtectionDomain().getCodeSource().getLocation()+filePath);
 
         if (ApplicationProperties.instance == null){
-
             Map<String,String> map=new HashMap<>();
-            try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir")+"/src/"+filePath))) {
+//            /home/shariorh/eclipse-workspace/twitter/src/main/resources
+            try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/"+filePath))) {
+//            try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir")+"src/main/resources/"+filePath))) {
                 String line;
                 String[] keyValue;
                 while ((line = reader.readLine()) != null) {

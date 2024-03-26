@@ -4,4 +4,43 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+
+  <servlet>
+    <servlet-name>Tweet</servlet-name>
+    <servlet-class>com.minitwitter.servlet.Tweet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Tweet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+
+<!--  <servlet>-->
+<!--    <servlet-name>Login</servlet-name>-->
+<!--    <servlet-class>com.minitwitter.servlet.Login</servlet-class>-->
+<!--  </servlet>-->
+
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>Login</servlet-name>-->
+<!--    <url-pattern>/login</url-pattern>-->
+<!--  </servlet-mapping>-->
+
+
+
+
+
+
+<!--  <servlet>-->
+<!--    <servlet-name>Login</servlet-name>-->
+<!--    <servlet-class>com.minitwitter.servlet.Login</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>Login</servlet-name>-->
+<!--    <url-pattern>/User</url-pattern>-->
+<!--  </servlet-mapping>-->
+
+
+
+
 </web-app>
