@@ -16,7 +16,7 @@ public class tweetDao {
     private static final String delete_tweet="DELETE FROM tweet WHERE username = ? and id = ?";
     private static final String search_user_tweet="SELECT * FROM tweet WHERE username = ?";
     private static final String search_single_tweet="SELECT id, username, text FROM tweet WHERE id = ?";
-    private static final String search_friends_tweet="SELECT t.id as id , u.username as username , t.text as text  FROM tweet t join user u on t.username = u.id  WHERE t.username in (SELECT follower FROM followers_mapping WHERE id = ?)";
+    private static final String search_friends_tweet="SELECT t.id as id , u.username as username , t.text as text  FROM tweet t join user u on t.username = u.id  WHERE t.username in (SELECT follower FROM followers_mapping WHERE user = ?)";
 
 
     public static List<TweetDto> SearchUserTweet(int userId) throws SQLException {

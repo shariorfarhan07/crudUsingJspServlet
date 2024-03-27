@@ -7,7 +7,8 @@ public class TweetDto {
 
 
     public boolean isValid(){
-        return !(username == null  || text == null || username.equals("")|| text.equals(""));
+        System.out.println(text+" is not valid");
+        return !(username == null  || text == null || username.equals("")|| text.trim().equals(""));
     }
 
     public TweetDto(String id, String username, String text) {

@@ -20,7 +20,7 @@
 
 <%
   List<TweetDto> tweets  = (List<TweetDto>) request.getAttribute("tweets");
-    List<userDto>  follwers=(List<userDto>) request.getAttribute("follwers");
+    List<userDto>  followers=(List<userDto>) request.getAttribute("followers");
     List<userDto>  userTofollow=(List<userDto>) request.getAttribute("userTofollow");
   String username = (String) session.getAttribute("username");
 //  System.out.println(tweets+username);
@@ -82,7 +82,7 @@
             <img class="card-img-top" src="https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title"><%=user.getUserName()%></h5>
-                <a href="follow/<%=user.getUserId()%>" class="btn btn-primary">follow</a>
+                <a href="followerManagement?follow=<%=user.getUserId()%>" class="btn btn-primary">follow</a>
             </div>
         </div>
         <%
@@ -99,15 +99,15 @@
     <div class="row">
 
         <%
-            if (follwers != null)
-                for (userDto user: follwers) {
+            if (followers != null)
+                for (userDto user: followers) {
         %>
 
         <div class="card col-4" >
             <img class="card-img-top" src="https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <a href="#" class="btn btn-danger">unfollow</a>
+                <h5 class="card-title"><%=user.getUserName()%></h5>
+                <a href="followerManagement?unfollow=<%=user.getUserId()%>" class="btn btn-danger">unfollow</a>
             </div>
         </div>
         <%

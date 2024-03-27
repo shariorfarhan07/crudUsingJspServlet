@@ -16,6 +16,7 @@ public class followerManagement extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String follow = request.getParameter("follow");
         String unfollow = request.getParameter("unfollow");
+        System.out.println("Do get follow mapping:"+follow+" "+unfollow);
 
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
@@ -37,13 +38,19 @@ public class followerManagement extends HttpServlet {
 
 
         if (follow!=null){
+            System.out.println(follow);
             followerMappingDao.insertFollower(userid, Integer.parseInt(follow));
+            request.setAttribute("success","user has been followed ");
         }
         if (unfollow != null){
-            followerMappingDao.removeFollower(userid, Integer.parseInt(follow));
+            followerMappingDao.removeFollower(userid, Integer.parseInt(unfollow));
+            request.setAttribute("success","user has been unfollowed ");
+
 
         }
 
+        RequestDispatcher rd = request.getRequestDispatcher("tweet");
+        rd.forward(request,response);
 
 
     }

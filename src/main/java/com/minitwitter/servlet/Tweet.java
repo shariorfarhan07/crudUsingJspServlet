@@ -87,18 +87,18 @@ public class Tweet extends HttpServlet {
 
 
         List<TweetDto> tweets = null;
-        List<userDto>  follwers=null;
+        List<userDto>  followers=null;
         List<userDto>  userTofollow=null;
         try {
             tweets = tweetDao.SearchFriendsAndMyTweet(userid);
-            follwers=userDao.getFollowers(userid);
+            followers=userDao.getFollowers(userid);
             userTofollow=userDao.getUserToFollow(userid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         request.setAttribute("tweets",tweets);
-        request.setAttribute("follwers",follwers);
+        request.setAttribute("followers",followers);
         request.setAttribute("userTofollow",userTofollow);
         RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request,response);
@@ -107,6 +107,12 @@ public class Tweet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String tweet=request.getParameter("tweet");
+        if (tweet.equals("")) {
+            HttpSession session = request.getSession();
+            session.setAttribute("error","can not post empty tweet");
+            response.sendRedirect("tweet");
+            return;
+        }
         HttpSession session = request.getSession();
         String username =null;
         String userid=null;

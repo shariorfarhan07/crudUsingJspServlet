@@ -13,8 +13,9 @@ public class userDao {
     private static final String  get_user_with_userName="SELECT * FROM user WHERE username=?";
     private static final String  search_user_with_userName="SELECT * FROM user WHERE username = ?";
     private static final String  create_user="INSERT INTO user(username, password,email) VALUES (?,?,?)";
-    private static final String  getFollowers="SELECT * FROM user WHERE username in (select follower From followers_mapping where user = ?)";
-    private static final String  getUserToFollow="SELECT * FROM user WHERE username not in (select follower From followers_mapping where user = ?)";
+    private static final String  getFollowers="SELECT * FROM user WHERE id in (select follower From followers_mapping where user = ?)";
+//    and id != ?
+    private static final String  getUserToFollow="SELECT * FROM user WHERE id not in (select follower From followers_mapping where user = ?) and id != ?";
     static Connection connection;
 
     public static userDto searchUser(String userName){
@@ -90,6 +91,7 @@ public class userDao {
             connection = DB.getConnection();
             PreparedStatement statement = connection.prepareStatement(getFollowers);
             statement.setInt(1,userid);
+//            statement.setInt(2,userid);
             System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
@@ -114,6 +116,7 @@ public class userDao {
             connection = DB.getConnection();
             PreparedStatement statement = connection.prepareStatement(getUserToFollow);
             statement.setInt(1,userid);
+            statement.setInt(2,userid);
             System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
