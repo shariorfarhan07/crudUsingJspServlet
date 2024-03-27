@@ -17,9 +17,7 @@ import java.sql.SQLException;
 public class Register extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.sendRedirect("register.jsp");
-
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

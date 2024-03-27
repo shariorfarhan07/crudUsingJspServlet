@@ -18,7 +18,6 @@ class DatabaseConnector {
     }
 
 
-
     // Method to get database connection
     public  Connection getConnection() throws SQLException {
         try {

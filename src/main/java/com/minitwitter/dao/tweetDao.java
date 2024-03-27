@@ -29,7 +29,6 @@ public class tweetDao {
         return SearchTweet(search_friends_tweet+"or t.username="+userId+" order by id DESC",userId);
     }
 
-
     private static List<TweetDto> SearchTweet(String sql, int userId) throws SQLException {
         ResultSet resultSet=null;
         List<TweetDto> list = null;
