@@ -1,23 +1,29 @@
 package com.minitwitter.dao;
 
-import com.minitwitter.dto.user;
+import com.minitwitter.dto.TweetDto;
+//import com.minitwitter.dto.user;
+import com.minitwitter.dto.userDto;
 import com.minitwitter.service.DB;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class userDao {
     private static final String  get_user_with_userName="SELECT * FROM user WHERE username=?";
     private static final String  search_user_with_userName="SELECT * FROM user WHERE username = ?";
     private static final String  create_user="INSERT INTO user(username, password,email) VALUES (?,?,?)";
+    private static final String  getFollowers="SELECT * FROM user WHERE username in (select follower From followers_mapping where user = ?)";
+    private static final String  getUserToFollow="SELECT * FROM user WHERE username not in (select follower From followers_mapping where user = ?)";
     static Connection connection;
 
-    public static user searchUser(String userName){
+    public static userDto searchUser(String userName){
         try {
             connection = DB.getConnection();
             PreparedStatement statement = connection.prepareStatement(search_user_with_userName);
             statement.setString(1,userName);
             ResultSet resultSet = statement.executeQuery();
-            user user=new user();
+            userDto user=new userDto();
             while (resultSet.next()){
                 user.setUserId(resultSet.getString("id"));
                 user.setUserName(resultSet.getString("username"));
@@ -72,10 +78,57 @@ public class userDao {
 
 
 
-    public static void main(String[] args) throws SQLException {
-        System.out.println(hasUser("farhan34"));
-        System.out.println(createUser("farhan3","password",""));
-        System.out.println(hasUser("farhan3"));
+//    public static void main(String[] args) throws SQLException {
+//        System.out.println(hasUser("farhan34"));
+//        System.out.println(createUser("farhan3","password",""));
+//        System.out.println(hasUser("farhan3"));
+//    }
+
+    public static List<userDto> getFollowers(int userid) {
+        List<userDto> t=new ArrayList<>();
+        try {
+            connection = DB.getConnection();
+            PreparedStatement statement = connection.prepareStatement(getFollowers);
+            statement.setInt(1,userid);
+            System.out.println(statement);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                userDto u =new userDto();
+                u.setUserId(resultSet.getString("id"));
+                u.setUserName(resultSet.getString("username"));
+                u.setEmail(resultSet.getString("email"));
+                t.add(u);
+            }
+            connection.close();
+            return t;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
+    public static List<userDto> getUserToFollow(int userid) {
+        List<userDto> t=new ArrayList<>();
+        try {
+            connection = DB.getConnection();
+            PreparedStatement statement = connection.prepareStatement(getUserToFollow);
+            statement.setInt(1,userid);
+            System.out.println(statement);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                userDto u =new userDto();
+                u.setUserId(resultSet.getString("id"));
+                u.setUserName(resultSet.getString("username"));
+                u.setEmail(resultSet.getString("email"));
+                t.add(u);
+            }
+            connection.close();
+            return t;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
 }

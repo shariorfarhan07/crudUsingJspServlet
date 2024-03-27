@@ -33,6 +33,8 @@ TweetDto tweet = (TweetDto) request.getAttribute("tweet");
     <div class="form-group">
       <label for="tweet"> update the tweet</label>
       <input type="text" class="form-control" id="tweet" name="tweet"  value="<%=tweet.getText()%>">
+      <input type="hidden" id="id" name="id" value="<%=tweet.getId()%>">
+      <input type="hidden" id="username" name="username" value="<%=tweet.getUsername()%>">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>

@@ -1,7 +1,8 @@
 package com.minitwitter.servlet;
 
 import com.minitwitter.dao.userDao;
-import com.minitwitter.dto.user;
+//import com.minitwitter.dto.user;
+import com.minitwitter.dto.userDto;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ public class Register extends HttpServlet {
         String password=request.getParameter("password");
         String email=request.getParameter("email");
 
-        user authUser=new user();
+        userDto authUser=new userDto();
         authUser.setUserName(username);
         authUser.setEmail(email);
         authUser.setPassword(password);

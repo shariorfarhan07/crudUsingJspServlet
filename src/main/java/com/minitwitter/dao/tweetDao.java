@@ -42,7 +42,7 @@ public class tweetDao {
             list = new LinkedList<>();
             while (resultSet.next()){
                 TweetDto t=new TweetDto(resultSet.getString("id"),resultSet.getString("username"),resultSet.getString("text"));
-                System.out.println(t);
+//                System.out.println(t);
                 list.add(t);
             }
             connection.close();
@@ -78,13 +78,14 @@ public class tweetDao {
             return false;
         }
     }
-    public static boolean updateTweet(int tweetId, int userId ){
+    public static boolean updateTweet(int tweetId, int userId,String text ){
         try {
             Connection connection = DB.getConnection();
-            PreparedStatement statement = connection.prepareStatement(delete_tweet);
-            statement.setString(1, String.valueOf(userId));
-            statement.setString(2, String.valueOf(tweetId));
-
+            PreparedStatement statement = connection.prepareStatement(update_tweet);
+            statement.setString(1, text);
+            statement.setInt(2, userId);
+            statement.setInt(3, tweetId);
+            System.out.println("Update query"+statement);
             int a =statement.executeUpdate();
             connection.close();
             return a==1;
@@ -112,12 +113,9 @@ public class tweetDao {
 
     }
 
-//    public static void main(String[] args) {
-//
-//            System.out.println(deletetweet(1,1));
-//
-//
-//    }
+    public static void updateTweet(TweetDto tweetUpdate) {
+        updateTweet(tweetUpdate.getId(), Integer.parseInt(tweetUpdate.getUsername()),tweetUpdate.getText());
+    }
 
 
 }

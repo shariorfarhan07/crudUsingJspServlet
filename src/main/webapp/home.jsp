@@ -1,5 +1,6 @@
 <%@ page import="com.minitwitter.dto.TweetDto" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.minitwitter.dto.userDto" %><%--
   Created by IntelliJ IDEA.
   User: shariorh
   Date: 3/15/24
@@ -19,6 +20,8 @@
 
 <%
   List<TweetDto> tweets  = (List<TweetDto>) request.getAttribute("tweets");
+    List<userDto>  follwers=(List<userDto>) request.getAttribute("follwers");
+    List<userDto>  userTofollow=(List<userDto>) request.getAttribute("userTofollow");
   String username = (String) session.getAttribute("username");
 //  System.out.println(tweets+username);
   if (username==null)response.sendRedirect("login.jsp");
@@ -65,6 +68,60 @@
   </div>
 
 </div>
+
+<div class="container">
+    <h1> user to follow </h1>
+    <div class="row">
+        <%
+            if (userTofollow != null)
+                for (userDto user: userTofollow) {
+        %>
+
+
+        <div class="card col-4" >
+            <img class="card-img-top" src="https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title"><%=user.getUserName()%></h5>
+                <a href="follow/<%=user.getUserId()%>" class="btn btn-primary">follow</a>
+            </div>
+        </div>
+        <%
+                }
+        %>
+
+
+    </div>
+</div>
+
+
+<div class="container">
+    <h1> following </h1>
+    <div class="row">
+
+        <%
+            if (follwers != null)
+                for (userDto user: follwers) {
+        %>
+
+        <div class="card col-4" >
+            <img class="card-img-top" src="https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <a href="#" class="btn btn-danger">unfollow</a>
+            </div>
+        </div>
+        <%
+                }
+        %>
+
+    </div>
+</div>
+
+
+
+
+
+
 
 <%--<%--%>
 <%--  if (tweets != null)--%>

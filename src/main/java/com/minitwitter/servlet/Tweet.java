@@ -3,7 +3,8 @@ package com.minitwitter.servlet;
 import com.minitwitter.dao.tweetDao;
 import com.minitwitter.dao.userDao;
 import com.minitwitter.dto.TweetDto;
-import com.minitwitter.dto.user;
+//import com.minitwitter.dto.user;
+import com.minitwitter.dto.userDto;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -57,7 +58,6 @@ public class Tweet extends HttpServlet {
                 id = parts[1];
                 try {
                     List<TweetDto> t=tweetDao.searchSingleStweet(Integer.parseInt(id));
-                  System.out.println(t.get(0)+"  this is farhan");
                     if (t.size()!=0)session.setAttribute("tweet",(TweetDto)t.get(0));
                     if (t.size()!=0)request.setAttribute("tweet",(TweetDto)t.get(0));
                     response.sendRedirect(contextPath+"/updatetweet");
@@ -87,13 +87,19 @@ public class Tweet extends HttpServlet {
 
 
         List<TweetDto> tweets = null;
+        List<userDto>  follwers=null;
+        List<userDto>  userTofollow=null;
         try {
             tweets = tweetDao.SearchFriendsAndMyTweet(userid);
+            follwers=userDao.getFollowers(userid);
+            userTofollow=userDao.getUserToFollow(userid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         request.setAttribute("tweets",tweets);
+        request.setAttribute("follwers",follwers);
+        request.setAttribute("userTofollow",userTofollow);
         RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request,response);
 

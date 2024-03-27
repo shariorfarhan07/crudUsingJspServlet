@@ -2,7 +2,8 @@ package com.minitwitter.servlet;
 
 import com.minitwitter.dao.userDao;
 import com.minitwitter.dto.Credentials;
-import com.minitwitter.dto.user;
+//import com.minitwitter.dto.user;
+import com.minitwitter.dto.userDto;
 import com.minitwitter.service.AuthService;
 import com.minitwitter.service.DB;
 import com.mysql.cj.Session;
@@ -49,7 +50,7 @@ public class Login extends HttpServlet {
         HttpSession session = request.getSession();
         AuthService auth=new AuthService();
         if (auth.isValidCredential(user)){
-            user userCred=userDao.searchUser(user.getUserName());
+            userDto userCred=userDao.searchUser(user.getUserName());
             System.out.println("valid credential"+userCred);
             session.putValue("username",userCred.getUserName());
             session.putValue("id",userCred.getUserId());

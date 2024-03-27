@@ -6,6 +6,10 @@ public class TweetDto {
     private String text;
 
 
+    public boolean isValid(){
+        return !(username == null  || text == null || username.equals("")|| text.equals(""));
+    }
+
     public TweetDto(String id, String username, String text) {
         this.id = Integer.parseInt(id);
         this.username=username;
