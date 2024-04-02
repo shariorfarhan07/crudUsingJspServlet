@@ -1,15 +1,14 @@
 package com.minitwitter.dao;
 
-import com.minitwitter.dto.TweetDto;
 //import com.minitwitter.dto.user;
-import com.minitwitter.dto.userDto;
-import com.minitwitter.service.DB;
+import com.minitwitter.dto.UserDto;
+import com.minitwitter.conf.DB;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class userDao {
+public class UserDao {
     private static final String  get_user_with_userName="SELECT * FROM user WHERE username=?";
     private static final String  search_user_with_userName="SELECT * FROM user WHERE username = ?";
     private static final String  create_user="INSERT INTO user(username, password,email) VALUES (?,?,?)";
@@ -18,13 +17,13 @@ public class userDao {
     private static final String  getUserToFollow="SELECT * FROM user WHERE id not in (select follower From followers_mapping where user = ?) and id != ?";
     static Connection connection;
 
-    public static userDto searchUser(String userName){
+    public static UserDto searchUser(String userName){
         try {
             connection = DB.getConnection();
             PreparedStatement statement = connection.prepareStatement(search_user_with_userName);
             statement.setString(1,userName);
             ResultSet resultSet = statement.executeQuery();
-            userDto user=new userDto();
+            UserDto user=new UserDto();
             while (resultSet.next()){
                 user.setUserId(resultSet.getString("id"));
                 user.setUserName(resultSet.getString("username"));
@@ -85,8 +84,8 @@ public class userDao {
 //        System.out.println(hasUser("farhan3"));
 //    }
 
-    public static List<userDto> getFollowers(int userid) {
-        List<userDto> t=new ArrayList<>();
+    public static List<UserDto> getFollowers(int userid) {
+        List<UserDto> t=new ArrayList<>();
         try {
             connection = DB.getConnection();
             PreparedStatement statement = connection.prepareStatement(getFollowers);
@@ -95,7 +94,7 @@ public class userDao {
             System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                userDto u =new userDto();
+                UserDto u =new UserDto();
                 u.setUserId(resultSet.getString("id"));
                 u.setUserName(resultSet.getString("username"));
                 u.setEmail(resultSet.getString("email"));
@@ -110,8 +109,8 @@ public class userDao {
         return null;
     }
 
-    public static List<userDto> getUserToFollow(int userid) {
-        List<userDto> t=new ArrayList<>();
+    public static List<UserDto> getUserToFollow(int userid) {
+        List<UserDto> t=new ArrayList<>();
         try {
             connection = DB.getConnection();
             PreparedStatement statement = connection.prepareStatement(getUserToFollow);
@@ -120,7 +119,7 @@ public class userDao {
             System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                userDto u =new userDto();
+                UserDto u =new UserDto();
                 u.setUserId(resultSet.getString("id"));
                 u.setUserName(resultSet.getString("username"));
                 u.setEmail(resultSet.getString("email"));

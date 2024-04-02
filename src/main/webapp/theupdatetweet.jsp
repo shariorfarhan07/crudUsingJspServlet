@@ -26,10 +26,10 @@
   <jsp:include page="htmlextentions/Alerts-messages.jsp" />
 
     <%
-TweetDto tweet = (TweetDto) request.getAttribute("tweet");
+      TweetDto tweet = (TweetDto) request.getAttribute("tweet");
       if (tweet !=null){
       %>
-  <form class="pt-3" style="margin: 10px;" method="POST"  action="updatetweet">
+  <form class="pt-3" style="margin: 10px;" method="POST"  action="/tweet/update">
     <div class="form-group">
       <label for="tweet"> update the tweet</label>
       <input type="text" class="form-control" id="tweet" name="tweet"  value="<%=tweet.getText()%>">

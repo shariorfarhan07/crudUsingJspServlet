@@ -1,6 +1,5 @@
-package com.minitwitter.service;
+package com.minitwitter.conf;
 
-import javax.servlet.ServletContext;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
