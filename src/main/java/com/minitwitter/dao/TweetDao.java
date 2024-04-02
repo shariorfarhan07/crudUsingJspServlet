@@ -1,7 +1,7 @@
 package com.minitwitter.dao;
 
 import com.minitwitter.dto.TweetDto;
-import com.minitwitter.service.DB;
+import com.minitwitter.conf.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class tweetDao {
+public class TweetDao {
     private static final String create_tweet="INSERT INTO tweet(username, text) VALUES (?,?)";
     private static final String update_tweet="UPDATE tweet SET text=? WHERE username = ? and id = ?";
     private static final String delete_tweet="DELETE FROM tweet WHERE username = ? and id = ?";

@@ -1,13 +1,13 @@
 package com.minitwitter.dao;
 
-import com.minitwitter.service.DB;
+import com.minitwitter.conf.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class followerMappingDao {
+public class FollowerMappingDao {
     private static final String insertFollower="INSERT INTO followers_mapping(user, follower) VALUES (?,?)";
     private static final String deleteFollower="DELETE FROM followers_mapping WHERE user = ? and follower = ?";
 //    private static final String seeFollowe="SELECT * FROM followers_mapping WHERE user = ?";

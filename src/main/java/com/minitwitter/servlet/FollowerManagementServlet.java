@@ -1,6 +1,7 @@
 package com.minitwitter.servlet;
 
-import com.minitwitter.dao.followerMappingDao;
+import com.minitwitter.dao.FollowerMappingDao;
+import com.minitwitter.service.FollowManagementService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @WebServlet("/followerManagement")
-public class followerManagement extends HttpServlet {
+public class FollowerManagementServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String follow = request.getParameter("follow");
@@ -24,7 +25,7 @@ public class followerManagement extends HttpServlet {
         int userid=0;
         if (username == null) {
             request.setAttribute("error","You are not logged in, please login!");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("userlogin.jsp");
             rd.forward(request,response);
             return;
         }
@@ -32,18 +33,13 @@ public class followerManagement extends HttpServlet {
         System.out.println("user id from tweet"+userid);
 
 
-
-
-
-
-
         if (follow!=null){
+            FollowManagementService.followUser(userid, Integer.parseInt(follow));
             System.out.println(follow);
-            followerMappingDao.insertFollower(userid, Integer.parseInt(follow));
             request.setAttribute("success","user has been followed ");
         }
         if (unfollow != null){
-            followerMappingDao.removeFollower(userid, Integer.parseInt(unfollow));
+            FollowManagementService.removeFollower(userid, Integer.parseInt(follow));
             request.setAttribute("success","user has been unfollowed ");
 
 

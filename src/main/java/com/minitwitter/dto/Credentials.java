@@ -19,6 +19,11 @@ public class Credentials {
     public Credentials() {
     }
 
+    public Credentials(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Credentials{" +

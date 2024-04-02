@@ -45,7 +45,7 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  <p> Already have an account?<a href="login"> Login</a></p>
+  <p> Already have an account?<a href="auth/login"> Login</a></p>
 </div>
 
 

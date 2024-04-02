@@ -1,6 +1,6 @@
 <%@ page import="com.minitwitter.dto.TweetDto" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.minitwitter.dto.userDto" %><%--
+<%@ page import="com.minitwitter.dto.UserDto" %><%--
   Created by IntelliJ IDEA.
   User: shariorh
   Date: 3/15/24
@@ -20,11 +20,11 @@
 
 <%
   List<TweetDto> tweets  = (List<TweetDto>) request.getAttribute("tweets");
-    List<userDto>  followers=(List<userDto>) request.getAttribute("followers");
-    List<userDto>  userTofollow=(List<userDto>) request.getAttribute("userTofollow");
+    List<UserDto>  followers=(List<UserDto>) request.getAttribute("followers");
+    List<UserDto>  userTofollow=(List<UserDto>) request.getAttribute("userTofollow");
   String username = (String) session.getAttribute("username");
 //  System.out.println(tweets+username);
-  if (username==null)response.sendRedirect("login.jsp");
+  if (username==null)response.sendRedirect("auth/login");
 %>
 <div class="container pt-3">
   <jsp:include page="htmlextentions/Alerts-messages.jsp" />
@@ -51,8 +51,8 @@
               if ( tweet.getUsername().equals(username) ){
           %>
 
-        <a href="tweet/<%=tweet.getId()%>" class="btn btn-success">Update</a>
-        <a href="tweet/<%=tweet.getId()%>/delete" class="btn btn-danger">Delete</a>
+        <a href="tweet/update/<%=tweet.getId()%>" class="btn btn-success">Update</a>
+        <a href="tweet/delete/<%=tweet.getId()%>" class="btn btn-danger">Delete</a>
 
           <%
               }
@@ -74,7 +74,7 @@
     <div class="row">
         <%
             if (userTofollow != null)
-                for (userDto user: userTofollow) {
+                for (UserDto user: userTofollow) {
         %>
 
 
@@ -100,7 +100,7 @@
 
         <%
             if (followers != null)
-                for (userDto user: followers) {
+                for (UserDto user: followers) {
         %>
 
         <div class="card col-4" >

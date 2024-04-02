@@ -1,4 +1,4 @@
-package com.minitwitter.service;
+package com.minitwitter.conf;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

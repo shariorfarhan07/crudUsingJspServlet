@@ -1,6 +1,6 @@
 package com.minitwitter.dto;
 
-public class userDto {
+public class UserDto {
     private int userId;
     private String userName;
     private String password;
@@ -34,10 +34,10 @@ public class userDto {
         this.email = email;
     }
 
-    public userDto() {
+    public UserDto() {
     }
 
-    public userDto(String userName, String password) {
+    public UserDto(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
