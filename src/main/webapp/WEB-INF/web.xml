@@ -41,6 +41,14 @@
 <!--  </servlet-mapping>-->
 
 
+<!--  <context-param>-->
+<!--    <param-name>application.properties</param-name>-->
+<!--    <param-value>src/main/resources/application.properties</param-value>-->
+<!--  </context-param>-->
 
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>default</servlet-name>-->
+<!--    <url-pattern>/resources/+</url-pattern>-->
+<!--  </servlet-mapping> -->
 
 </web-app>

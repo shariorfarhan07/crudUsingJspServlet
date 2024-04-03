@@ -1,26 +1,31 @@
 package com.minitwitter.conf;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ApplicationProperties {
     private final Map<String,String> properties;
     private static ApplicationProperties instance;
-    private static String filePath = "application.properties";
+//    private static String filePath = "./src/main/resources/application.properties";
+    private static String filePath = "/home/shariorh/eclipse-workspace/twitter/target/classes/application.properties";
 
     public ApplicationProperties(Map<String, String> properties) {
         this.properties = properties;
     }
-    public static synchronized ApplicationProperties getProperties(){
-       System.out.println(ApplicationProperties.class.getProtectionDomain().getCodeSource().getLocation()+filePath);
+    public static synchronized ApplicationProperties getProperties() throws FileNotFoundException {
+//        test();
+
+
+       System.out.println(" farhan "+filePath);
+       System.out.println(filePath);
 
         if (ApplicationProperties.instance == null){
             Map<String,String> map=new HashMap<>();
 //            /home/shariorh/eclipse-workspace/twitter/src/main/resources
-            try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/"+filePath))) {
+            File file = new File(filePath);
+            System.out.println(file.listFiles());
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 //            try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir")+"src/main/resources/"+filePath))) {
                 String line;
                 String[] keyValue;
@@ -41,4 +46,5 @@ public class ApplicationProperties {
         return ApplicationProperties.instance;
     }
     public String getProp(String key){ return properties.get(key);}
+
 }
