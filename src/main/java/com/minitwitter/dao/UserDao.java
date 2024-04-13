@@ -2,7 +2,7 @@ package com.minitwitter.dao;
 
 //import com.minitwitter.dto.user;
 import com.minitwitter.dto.UserDto;
-import com.minitwitter.conf.DB;
+import com.minitwitter.config.DB;
 
 import java.sql.*;
 import java.util.ArrayList;

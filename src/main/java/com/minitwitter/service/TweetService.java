@@ -15,7 +15,9 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
-public class TweetMaganementService {
+public class TweetService {
+
+
 
 
     public static void updateTweetPageShow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -35,7 +37,7 @@ public class TweetMaganementService {
         int userid=0;
         if (username == null) {
             request.setAttribute("error","You are not logged in, please login!");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("userlogin.jsp");
             rd.forward(request,response);
             return;
         }
@@ -103,7 +105,7 @@ public class TweetMaganementService {
         String userid = null;
         try {
             username = (String) session.getAttribute("username");
-            if (username == null) response.sendRedirect("login.jsp");
+            if (username == null) response.sendRedirect("userlogin.jsp");
             userid = "" + (int) session.getAttribute("id");
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,7 +135,7 @@ public class TweetMaganementService {
         int userid = 0;
         if (username == null) {
             request.setAttribute("error", "You are not logged in, please login!");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("userlogin.jsp");
             rd.forward(request, response);
             return;
         }

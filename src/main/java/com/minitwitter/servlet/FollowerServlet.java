@@ -1,7 +1,6 @@
 package com.minitwitter.servlet;
 
-import com.minitwitter.dao.FollowerMappingDao;
-import com.minitwitter.service.FollowManagementService;
+import com.minitwitter.service.FollowerService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @WebServlet("/followerManagement")
-public class FollowerManagementServlet extends HttpServlet {
+public class FollowerServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String follow = request.getParameter("follow");
@@ -34,12 +33,12 @@ public class FollowerManagementServlet extends HttpServlet {
 
 
         if (follow!=null){
-            FollowManagementService.followUser(userid, Integer.parseInt(follow));
+            FollowerService.followUser(userid, Integer.parseInt(follow));
             System.out.println(follow);
             request.setAttribute("success","user has been followed ");
         }
         if (unfollow != null){
-            FollowManagementService.removeFollower(userid, Integer.parseInt(follow));
+            FollowerService.removeFollower(userid, Integer.parseInt(follow));
             request.setAttribute("success","user has been unfollowed ");
 
 

@@ -1,6 +1,6 @@
 package com.minitwitter.dto;
 
-public class Credentials {
+public class CredentialsDto {
     private String userName;
     private String password;
 
@@ -16,10 +16,10 @@ public class Credentials {
         this.password = password;
     }
 
-    public Credentials() {
+    public CredentialsDto() {
     }
 
-    public Credentials(String userName, String password) {
+    public CredentialsDto(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }

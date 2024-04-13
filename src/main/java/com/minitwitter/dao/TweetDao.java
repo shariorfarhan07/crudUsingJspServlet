@@ -1,7 +1,7 @@
 package com.minitwitter.dao;
 
 import com.minitwitter.dto.TweetDto;
-import com.minitwitter.conf.DB;
+import com.minitwitter.config.DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

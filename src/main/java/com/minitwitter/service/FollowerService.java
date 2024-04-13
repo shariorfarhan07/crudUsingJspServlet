@@ -2,7 +2,7 @@ package com.minitwitter.service;
 
 import com.minitwitter.dao.FollowerMappingDao;
 
-public class FollowManagementService {
+public class FollowerService {
     public static void followUser(int userid, int follow) {
         FollowerMappingDao.insertFollower(userid, follow);
         System.out.println("User "+userid+" added "+follow);

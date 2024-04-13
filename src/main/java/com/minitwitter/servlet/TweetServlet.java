@@ -16,10 +16,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import com.minitwitter.service.TweetMaganementService;
+import com.minitwitter.service.TweetService;
 
 @WebServlet("/tweet/*")
-public class TweetManagementServlet extends HttpServlet {
+public class TweetServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String fullPath = request.getPathInfo();
         if (fullPath == null ) fullPath="/ ";
@@ -29,18 +29,18 @@ public class TweetManagementServlet extends HttpServlet {
         switch (pathslices[1].trim()) {
             case "update":
                 try {
-                    TweetMaganementService.updateTweetPageShow(request, response);
+                    TweetService.updateTweetPageShow(request, response);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
                 break;
             case "delete":
-                TweetMaganementService.deletepost(request, response);
+                TweetService.deletepost(request, response);
                 break;
 
             default:
                 System.out.println("TweetManagementServlet: Going to default home page!!!");
-                TweetMaganementService.tweetHome(request, response);
+                TweetService.tweetHome(request, response);
 
         }
     }
@@ -55,13 +55,13 @@ public class TweetManagementServlet extends HttpServlet {
         if (fullPath == null ) fullPath="/";
         switch (fullPath) {
             case "/update":
-                TweetMaganementService.updateTweetPost(request, response);
+                TweetService.updateTweetPost(request, response);
 
                 break;
 
             default:
                 System.out.println(" TweetManagementServlet: insert post!!!");
-                TweetMaganementService.tweetInsert(request, response);
+                TweetService.tweetInsert(request, response);
 
         }
 

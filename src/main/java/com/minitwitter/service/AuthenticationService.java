@@ -1,7 +1,7 @@
 package com.minitwitter.service;
 
 import com.minitwitter.dao.UserDao;
-import com.minitwitter.dto.Credentials;
+import com.minitwitter.dto.CredentialsDto;
 //import com.minitwitter.dto.user;
 import com.minitwitter.dto.UserDto;
 
@@ -23,7 +23,12 @@ public class AuthenticationService {
         HttpSession session = request.getSession();
         System.out.println("logging out as "+session.getAttribute("username"));
         session.invalidate();
-        request.setAttribute("success","You have been logged out successfully");;
+        if (session.getAttribute("username") == null){
+            request.setAttribute("warning","Please login first to use logout");
+        }else {
+            request.setAttribute("success","You have been logged out successfully");
+        }
+
         RequestDispatcher rd = request.getRequestDispatcher("/userlogin.jsp");
         rd.forward(request,response);
     }
@@ -37,7 +42,7 @@ public class AuthenticationService {
 
         String username=request.getParameter("username");
         String password=request.getParameter("password");
-        Credentials user=new Credentials(username,password);
+        CredentialsDto user=new CredentialsDto(username,password);
         System.out.println(user);
         if (!user.validParam()){
             request.setAttribute("error","Please provide valid user name and password!");
@@ -90,7 +95,7 @@ public class AuthenticationService {
         rd.include(request,response);
     }
 
-    public boolean isValidCredential(Credentials user) {
+    public boolean isValidCredential(CredentialsDto user) {
         UserDto userCred= UserDao.searchUser(user.getUserName());
         if (userCred == null ) return false;
         if (userCred.getUserName() == null) return false;
@@ -101,7 +106,7 @@ public class AuthenticationService {
 
     }
 
-    public void createSession(HttpServletRequest request, HttpServletResponse response,Credentials user) throws ServletException, IOException {
+    public void createSession(HttpServletRequest request, HttpServletResponse response, CredentialsDto user) throws ServletException, IOException {
         System.out.println("create session");
         HttpSession session = request.getSession();
         UserDto userCred= UserDao.searchUser(user.getUserName());

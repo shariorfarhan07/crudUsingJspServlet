@@ -1,4 +1,4 @@
-package com.minitwitter.conf;
+package com.minitwitter.config;
 
 import java.io.FileNotFoundException;
 import java.sql.Connection;
