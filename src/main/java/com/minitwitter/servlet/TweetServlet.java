@@ -16,11 +16,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import com.minitwitter.service.TweetMaganementService;
+import com.minitwitter.service.TweetService;
 
 @WebServlet("/tweet/*")
-public class TweetManagementServlet extends HttpServlet {
+public class TweetServlet extends HttpServlet {
+    TweetService tweetService = TweetService.getInstance();
+    TweetDao tweetDao =TweetDao.getInstance();
+
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String fullPath = request.getPathInfo();
         if (fullPath == null ) fullPath="/ ";
         System.out.println(fullPath);
@@ -29,18 +34,18 @@ public class TweetManagementServlet extends HttpServlet {
         switch (pathslices[1].trim()) {
             case "update":
                 try {
-                    TweetMaganementService.updateTweetPageShow(request, response);
+                    tweetService.updatePage(request, response);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
                 break;
             case "delete":
-                TweetMaganementService.deletepost(request, response);
+                tweetService.delete(request, response);
                 break;
 
             default:
                 System.out.println("TweetManagementServlet: Going to default home page!!!");
-                TweetMaganementService.tweetHome(request, response);
+                tweetService.tweetHome(request, response);
 
         }
     }
@@ -55,13 +60,13 @@ public class TweetManagementServlet extends HttpServlet {
         if (fullPath == null ) fullPath="/";
         switch (fullPath) {
             case "/update":
-                TweetMaganementService.updateTweetPost(request, response);
+                tweetService.update(request, response);
 
                 break;
 
             default:
                 System.out.println(" TweetManagementServlet: insert post!!!");
-                TweetMaganementService.tweetInsert(request, response);
+                tweetService.Insert(request, response);
 
         }
 
@@ -69,6 +74,9 @@ public class TweetManagementServlet extends HttpServlet {
     }
 
     private void updateTweetPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+
+
         String username = request.getParameter("username");
         String tweet = request.getParameter("tweet");
         String id = request.getParameter("id");
@@ -99,7 +107,7 @@ public class TweetManagementServlet extends HttpServlet {
         if (("" + userid).equalsIgnoreCase(username.trim())) {
             System.out.println("update tweet!!!");
             tweetUpdate.setUsername(String.valueOf(userid));
-            TweetDao.updateTweet(tweetUpdate);
+            tweetDao.update(tweetUpdate);
         }
 
 
@@ -108,7 +116,6 @@ public class TweetManagementServlet extends HttpServlet {
     }
 
     private void tweetInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         String tweet = request.getParameter("tweet");
         if (tweet.equals("")) {
             HttpSession session = request.getSession();
@@ -129,12 +136,14 @@ public class TweetManagementServlet extends HttpServlet {
         }
 
         System.out.println("\ncalling post method " + userid + " " + tweet);
-        TweetDao.createTweet(Integer.parseInt(userid), tweet);
+        tweetDao.create(Integer.parseInt(userid), tweet);
         response.sendRedirect("tweet");
     }
 
 
     private void tweetHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        UserDao userDao =UserDao.getInstance();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         System.out.println("session username: "+username);
@@ -153,9 +162,9 @@ public class TweetManagementServlet extends HttpServlet {
         List<UserDto>  followers=null;
         List<UserDto>  userTofollow=null;
         try {
-            tweets = TweetDao.SearchFriendsAndMyTweet(userid);
-            followers= UserDao.getFollowers(userid);
-            userTofollow= UserDao.getUserToFollow(userid);
+            tweets = tweetDao.SearchFriendsAndMyTweet(userid);
+            followers= userDao.getFollowers(userid);
+            userTofollow= userDao.getUserToFollow(userid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -165,16 +174,6 @@ public class TweetManagementServlet extends HttpServlet {
         request.setAttribute("userTofollow",userTofollow);
         RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request,response);
-    }
-
-
-    public boolean isValidNumber(String input) {
-        try {
-            Integer.parseInt(input); // Use Long.parseLong() for long, Float.parseFloat() for float, Double.parseDouble() for double
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 }
 

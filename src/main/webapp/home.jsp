@@ -82,7 +82,7 @@
             <img class="card-img-top" src="https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title"><%=user.getUserName()%></h5>
-                <a href="followerManagement?follow=<%=user.getUserId()%>" class="btn btn-primary">follow</a>
+                <a href="follower?follow=<%=user.getUserId()%>" class="btn btn-primary">follow</a>
             </div>
         </div>
         <%
@@ -107,7 +107,7 @@
             <img class="card-img-top" src="https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title"><%=user.getUserName()%></h5>
-                <a href="followerManagement?unfollow=<%=user.getUserId()%>" class="btn btn-danger">unfollow</a>
+                <a href="follower?unfollow=<%=user.getUserId()%>" class="btn btn-danger">unfollow</a>
             </div>
         </div>
         <%
