@@ -17,20 +17,33 @@ import java.util.List;
 
 public class TweetService {
 
+    private static TweetService tweetService;
+    private TweetDao tweetDao;
+    private TweetService() {
+        tweetDao =TweetDao.getInstance();
+    }
 
+    public static  TweetService getInstance(){
+        if (tweetService == null) {
+            tweetService = new TweetService();
+        }
+        return tweetService;
+    }
 
+         
+    public  void updatePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
-    public static void updateTweetPageShow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String fullPath = request.getPathInfo();
         System.out.println(fullPath+" updateTweetPageShow");
         String[] pathslices= fullPath.split("/");
         System.out.println("update tweet");
-        request.setAttribute("tweet", TweetDao.searchSingleStweet(Integer.parseInt(pathslices[2].trim())).get(0));
+        request.setAttribute("tweet", tweetDao.searchSingleStweet(Integer.parseInt(pathslices[2].trim())).get(0));
         RequestDispatcher rd = request.getRequestDispatcher("/theupdatetweet.jsp");
         rd.forward(request, response);
     }
 
-    public static void deletepost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public  void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         System.out.println("session username: "+username);
@@ -54,11 +67,13 @@ public class TweetService {
         id = parts[2].trim();
         task = parts[1].trim();
         System.out.println(id+"\t\t"+userid);
-        TweetDao.deletetweet(Integer.parseInt(id),userid);
+        tweetDao.delete(Integer.parseInt(id),userid);
         response.sendRedirect(contextPath+"/tweet?success=Tweet has been deleted!");
     }
 
-    public static void tweetHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public  void tweetHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        UserDao userDao =UserDao.getInstance();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
         System.out.println("session username: "+username);
@@ -77,9 +92,9 @@ public class TweetService {
         List<UserDto>  followers=null;
         List<UserDto>  userTofollow=null;
         try {
-            tweets = TweetDao.SearchFriendsAndMyTweet(userid);
-            followers= UserDao.getFollowers(userid);
-            userTofollow= UserDao.getUserToFollow(userid);
+            tweets = tweetDao.SearchFriendsAndMyTweet(userid);
+            followers= userDao.getFollowers(userid);
+            userTofollow= userDao.getUserToFollow(userid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -91,7 +106,7 @@ public class TweetService {
         rd.forward(request,response);
     }
 
-    public static void tweetInsert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void Insert(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String tweet = request.getParameter("tweet");
         if (tweet.equals("")) {
@@ -113,11 +128,14 @@ public class TweetService {
         }
 
         System.out.println("\ncalling post method " + userid + " " + tweet);
-        TweetDao.createTweet(Integer.parseInt(userid), tweet);
+        tweetDao.create(Integer.parseInt(userid), tweet);
         response.sendRedirect("tweet");
     }
 
-    public static void updateTweetPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void update(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+
+
         String username = request.getParameter("username");
         String tweet = request.getParameter("tweet");
         String id = request.getParameter("id");
@@ -148,7 +166,7 @@ public class TweetService {
         if (("" + userid).equalsIgnoreCase(username.trim())) {
             System.out.println("update tweet!!!");
             tweetUpdate.setUsername(String.valueOf(userid));
-            TweetDao.updateTweet(tweetUpdate);
+            tweetDao.update(tweetUpdate);
         }
 
 

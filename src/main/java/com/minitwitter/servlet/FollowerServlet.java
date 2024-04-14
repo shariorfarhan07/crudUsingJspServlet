@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @WebServlet("/follower")
 public class FollowerServlet extends HttpServlet {
-
+    FollowerService followerService =FollowerService.getFollowerService();
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String follow = request.getParameter("follow");
         String unfollow = request.getParameter("unfollow");
-        System.out.println("Do get follow mapping:"+follow+" "+unfollow);
+        System.out.println("Do get follow mapping: "+follow+" "+unfollow);
 
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
@@ -33,15 +33,13 @@ public class FollowerServlet extends HttpServlet {
 
 
         if (follow!=null){
-            FollowerService.followUser(userid, Integer.parseInt(follow));
+            followerService.followUser(userid, Integer.parseInt(follow));
             System.out.println(follow);
             request.setAttribute("success","user has been followed ");
         }
         if (unfollow != null){
-            FollowerService.removeFollower(userid, Integer.parseInt(follow));
+            followerService.removeFollower(userid, Integer.parseInt(unfollow));
             request.setAttribute("success","user has been unfollowed ");
-
-
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("tweet");

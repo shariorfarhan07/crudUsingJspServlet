@@ -36,7 +36,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <p> Don't have an account?<a href="register"> register</a></p>
+    <p> Don't have an account?<a href="/auth/register"> register</a></p>
 </div>
 
 

@@ -26,7 +26,7 @@
 
   <jsp:include page="htmlextentions/Alerts-messages.jsp" />
   <h1>Register</h1>
-  <form action="register" method="post">
+  <form action="auth/register" method="post">
     <div class="form-group">
       <label for="UserName">User Name</label>
       <input type="text" class="form-control" id="UserName" aria-describedby="emailHelp" placeholder="Your user name Please" name="username">
@@ -45,7 +45,7 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  <p> Already have an account?<a href="auth/login"> Login</a></p>
+  <p> Already have an account?<a href="/auth/login"> Login</a></p>
 </div>
 
 
